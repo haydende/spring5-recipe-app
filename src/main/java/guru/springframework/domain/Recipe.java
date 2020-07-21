@@ -42,6 +42,22 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)
     private Note notes;
 
+    @ManyToMany
+    // Creates join table between the Recipe and Category tables using their
+    // respective ID fields
+    @JoinTable(name = "recipe_category",
+               joinColumns = @JoinColumn(name = "recipe_id"),
+                    inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
     public Long getId() {
         return id;
     }
