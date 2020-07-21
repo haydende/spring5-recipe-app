@@ -19,6 +19,19 @@ public class Ingredient {
     @ManyToOne
     private Recipe recipe;
 
+    public Ingredient() {
+
+    }
+
+    public Ingredient(String description) {
+        this(description, BigDecimal.ONE);
+    }
+
+    public Ingredient(String description, BigDecimal amount) {
+        this.description = description;
+        this.amount = amount;
+    }
+
     public String getDescription() {
         return description;
     }
