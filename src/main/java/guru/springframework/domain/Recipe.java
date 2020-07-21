@@ -1,6 +1,8 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Hayden on 21st Jul
@@ -21,6 +23,12 @@ public class Recipe {
     private String url;
     private String directions;
     // private Difficulty difficulty
+
+    // Set the changes here to cascade down to the Ingredient objects in the
+    // HashSet and also set them to be mapped by the recipe value in the
+    // Ingredient objects
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob
     private Byte[] image;
