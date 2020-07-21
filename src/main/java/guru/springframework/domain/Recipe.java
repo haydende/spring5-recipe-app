@@ -22,7 +22,12 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
-    // private Difficulty difficulty
+
+    // @Enumerated tells JPA that this should be persisted as an Enumerator
+    // EnumType.ORDINAL will persist the number
+    // EnumType.STRING will persist the String
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
 
     // Set the changes here to cascade down to the Ingredient objects in the
     // HashSet and also set them to be mapped by the recipe value in the
@@ -47,6 +52,22 @@ public class Recipe {
 
     public String getDescription() {
         return description;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public void setDescription(String description) {
