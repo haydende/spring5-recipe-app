@@ -23,13 +23,11 @@ public class Ingredient {
 
     }
 
-    public Ingredient(String description) {
-        this(description, BigDecimal.ONE);
-    }
-
-    public Ingredient(String description, BigDecimal amount) {
+    public Ingredient(String description, BigDecimal amount,
+                      UnitOfMeasure uom) {
         this.description = description;
         this.amount = amount;
+        this.uom = uom;
     }
 
     public String getDescription() {

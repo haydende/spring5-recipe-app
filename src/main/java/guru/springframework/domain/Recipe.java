@@ -15,12 +15,16 @@ public class Recipe {
     // generated using a strategy focusing on them being used in Id columns
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Lob
     private String description;
     private Integer prepTime;
     private Integer cookTime;
     private Integer servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
 
     // @Enumerated tells JPA that this should be persisted as an Enumerator
@@ -48,7 +52,7 @@ public class Recipe {
     @JoinTable(name = "recipe_category",
                joinColumns = @JoinColumn(name = "recipe_id"),
                     inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Set<Category> getCategories() {
         return categories;
@@ -152,5 +156,9 @@ public class Recipe {
 
     public void setNotes(Note notes) {
         this.notes = notes;
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
     }
 }
