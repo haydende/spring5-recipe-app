@@ -156,9 +156,11 @@ public class Recipe {
 
     public void setNotes(Note notes) {
         this.notes = notes;
+        notes.setRecipe(this);
     }
 
     public void addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);
+        ingredient.setRecipe(this);
     }
 }

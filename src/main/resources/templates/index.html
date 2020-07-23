@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>This is the Index Page</title>
+</head>
+<body>
+    <h2>This is the Recipe App Index Page!</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th width="150px">Description</th>
+    </tr>
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.id}">123</td>
+        <td th:text="${recipe.description}">Yummy food</td>
+    </tr>
+</table>
+
+</body>
+</html>
