@@ -1,10 +1,13 @@
 package guru.springframework.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * Created by Hayden on 21st Jul
  */
+@Data
 @Entity
 public class Note {
 
@@ -28,23 +31,8 @@ public class Note {
         return Id;
     }
 
-    public void setId(Long id) {
-        Id = id;
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
