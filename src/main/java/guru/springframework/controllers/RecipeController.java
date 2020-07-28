@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@Slf4j
 @RequestMapping({"/recipe"})
 public class RecipeController {
 
@@ -29,6 +31,14 @@ public class RecipeController {
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/recipeform";
+    }
+
+    @RequestMapping("{id}/delete")
+    public String deleteRecipe(@PathVariable String id, Model model) {
+        log.debug("Deleting recipe " + id);
+
+        recipeService.deleteById(Long.valueOf(id));
+        return "redirect:/";
     }
 
     @RequestMapping("/new")
