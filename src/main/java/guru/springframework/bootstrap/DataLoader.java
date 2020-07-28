@@ -91,14 +91,14 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         //get Categories
         Optional<Category> americanCategoryOptional =
-            categoryRepository.findByCategoryName("American");
+            categoryRepository.findByDescription("American");
 
         if(!americanCategoryOptional.isPresent()){
             throw new RuntimeException("Expected Category Not Found");
         }
 
         Optional<Category> mexicanCategoryOptional =
-            categoryRepository.findByCategoryName("Mexican");
+            categoryRepository.findByDescription("Mexican");
 
         if(!mexicanCategoryOptional.isPresent()){
             throw new RuntimeException("Expected Category Not Found");
