@@ -45,4 +45,13 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe recC = recConvert.convert(rec);
         return recC_Convert.convert(recipeRepository.save(recC));
     }
+
+    @Override
+    public RecipeCommand findCommandById(Long id) {
+        Recipe rec = recipeRepository.findById(id).orElse(null);
+        if (rec == null) {
+            throw new RuntimeException("Recipe not found");
+        }
+        return recC_Convert.convert(rec);
+    }
 }
