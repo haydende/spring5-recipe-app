@@ -63,6 +63,16 @@ class RecipeControllerTest {
     }
 
     @Test
+    void getRecipeIngredients() throws Exception {
+
+        mockMvc.perform(get("/recipe/1/ingredients"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("recipe/ingredients"));
+
+        verify(recipeService, times(1)).findById(anyLong());
+    }
+
+    @Test
     void getNewForm() throws Exception {
         RecipeCommand command = new RecipeCommand();
 

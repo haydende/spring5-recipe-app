@@ -1,14 +1,15 @@
 package guru.springframework.controllers;
 
+import exceptions.NotFoundException;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Slf4j
@@ -25,6 +26,12 @@ public class RecipeController {
     public String getRecipeById(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/show";
+    }
+
+    @RequestMapping("/{id}/ingredients")
+    public String getIngredients(@PathVariable String id, Model model) {
+        model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
+        return "recipe/ingredients";
     }
 
     @RequestMapping("{id}/update")
@@ -48,12 +55,17 @@ public class RecipeController {
         return "recipe/recipeform";
     }
 
-    @PostMapping
-    @RequestMapping(name = "recipe/new")
+    @PostMapping("recipe")
     // @RequestMapping(name = "recipe/new", method = RequestMethod.POST) // older way of setting up POST command
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdate(@ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
+            return "recipe/recipeform";
+        }
+
         RecipeCommand savedCommand = recipeService.saveCommand(command);
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show/";
     }
+
 }

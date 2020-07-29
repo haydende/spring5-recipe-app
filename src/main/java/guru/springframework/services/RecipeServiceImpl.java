@@ -1,5 +1,6 @@
 package guru.springframework.services;
 
+import exceptions.NotFoundException;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
@@ -37,7 +38,7 @@ public class RecipeServiceImpl implements RecipeService {
         if (recipeOptional.isPresent()) {
             return recipeOptional.get();
         }
-        throw new RuntimeException("Recipe has not been found!");
+        throw new NotFoundException("Recipe not found with ID: " + id.toString());
     }
 
     @Override
@@ -50,7 +51,7 @@ public class RecipeServiceImpl implements RecipeService {
     public RecipeCommand findCommandById(Long id) {
         Recipe rec = recipeRepository.findById(id).orElse(null);
         if (rec == null) {
-            throw new RuntimeException("Recipe not found");
+            throw new NotFoundException("Recipe not found with ID: " + id.toString());
         }
         return recC_Convert.convert(rec);
     }
